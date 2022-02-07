@@ -21,17 +21,9 @@ pipeline{
              stage("TEST")
             {
                 steps{
-                    sh "mvn test"
+                    sh "mvn clean test"
                 }
             } 
-            stage("package")
-            {
-                steps{
-                    sh "mvn package"
-                }
-            }
-
-
         }
          post {
         always{
@@ -40,10 +32,10 @@ pipeline{
 			body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
         }
          success {
-            echo "Packaging successful"
+            echo "Testing is successful"
         }
         failure {
-            echo "Packaging unsuccessful"
+            echo "Testing is failed"
         }
     }
     
